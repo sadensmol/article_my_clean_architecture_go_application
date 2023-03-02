@@ -1,0 +1,14 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12
+    ports:
+      - 5432:5432
+    restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -h postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

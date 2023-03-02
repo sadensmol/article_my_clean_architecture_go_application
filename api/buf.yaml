@@ -1,0 +1,8 @@
+version: v1
+name: buf.build/sadensmol/article_my_clean_architecture_go_application
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+lint:
+  use:
+    - DEFAULT

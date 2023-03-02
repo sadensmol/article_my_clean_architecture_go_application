@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package me.sadensmol.article_my_clean_architecture_go_application.contract.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  external_docs: {
+    url: "http://localhost:8081";
+  }
+  schemes: HTTP;
+};
+
+message Account {
+  string id = 1;
+  string name = 2;
+  AccountStatus status = 3;
+  google.protobuf.Timestamp opened_date = 4;
+  google.protobuf.Timestamp closed_date = 5;
+  AccessLevel access_level = 6;
+}
+
+enum AccountStatus {
+  ACCOUNT_STATUS_NEW = 0;
+  ACCOUNT_STATUS_OPEN = 1;
+  ACCOUNT_STATUS_CLOSED = 2;
+}
+
+enum AccessLevel {
+  ACCOUNT_ACCESS_LEVEL_FULL_ACCESS = 0;
+  ACCOUNT_ACCESS_LEVEL_READ_ONLY = 1;
+  ACCOUNT_ACCESS_LEVEL_NO_ACCESS = 2;
+}
+
+
+message CreateAccountRequest {
+  string name =1;
+  AccessLevel accessLevel =2;
+}
+
+message CreateAccountResponse {
+  string id = 1;
+}
+
+message GetAccountRequest {
+  string id =1;
+}
+
+message GetAccountResponse {
+  string id =1;
+  string name = 2;
+  AccountStatus status = 3;
+  google.protobuf.Timestamp opened_date = 4;
+  google.protobuf.Timestamp closed_date = 5;
+}
+
+service AccountService {
+  rpc Create(CreateAccountRequest) returns (CreateAccountResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/account"
+      body: "*"
+    };
+  }
+
+  rpc GetById(GetAccountRequest) returns (GetAccountResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/account/{id}"
+    };
+  }
+}
+

@@ -1,7 +1,5 @@
 package repositories
 
-// todo maybe call them adapters?
-
 import (
 	"database/sql"
 	"fmt"
@@ -20,7 +18,6 @@ func NewAccountRepository(db *sql.DB) *AccountRepository {
 	return &AccountRepository{db: db}
 }
 
-// todo add context here to pass transaction information
 func (a *AccountRepository) Create(account domain.Account) (*domain.Account, error) {
 
 	var savedAccount model.Account
@@ -35,7 +32,6 @@ func (a *AccountRepository) Create(account domain.Account) (*domain.Account, err
 	return RepositoryModelAccount(savedAccount).toDomain(), nil
 }
 
-// todo add context here to pass transaction information
 func (a *AccountRepository) GetByID(ID int64) (*domain.Account, error) {
 
 	var savedAccounts []model.Account

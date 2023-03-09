@@ -7,9 +7,10 @@ import (
 type AccountStatus string
 
 const (
-	AccountStatusNew    AccountStatus = "new"
-	AccountStatusOpen   AccountStatus = "open"
-	AccountStatusClosed AccountStatus = "closed"
+	AccountStatusNew     AccountStatus = "new"
+	AccountStatusOpen    AccountStatus = "open"
+	AccountStatusClosed  AccountStatus = "closed"
+	AccountStatusUnknown AccountStatus = "unknown"
 )
 
 type AccountAccessLevel string

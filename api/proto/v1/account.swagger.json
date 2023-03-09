@@ -114,20 +114,22 @@
     "v1AccessLevel": {
       "type": "string",
       "enum": [
+        "ACCOUNT_ACCESS_LEVEL_UNKNOWN",
         "ACCOUNT_ACCESS_LEVEL_FULL_ACCESS",
         "ACCOUNT_ACCESS_LEVEL_READ_ONLY",
         "ACCOUNT_ACCESS_LEVEL_NO_ACCESS"
       ],
-      "default": "ACCOUNT_ACCESS_LEVEL_FULL_ACCESS"
+      "default": "ACCOUNT_ACCESS_LEVEL_UNKNOWN"
     },
     "v1AccountStatus": {
       "type": "string",
       "enum": [
+        "ACCOUNT_STATUS_UNKNOWN",
         "ACCOUNT_STATUS_NEW",
         "ACCOUNT_STATUS_OPEN",
         "ACCOUNT_STATUS_CLOSED"
       ],
-      "default": "ACCOUNT_STATUS_NEW"
+      "default": "ACCOUNT_STATUS_UNKNOWN"
     },
     "v1CreateAccountRequest": {
       "type": "object",

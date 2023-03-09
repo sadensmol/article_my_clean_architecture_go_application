@@ -5,7 +5,6 @@ import (
 )
 
 type AccountUsecases struct {
-	//todo add loggers, and links to services, domain etc
 	accountService AccountService
 }
 
@@ -14,6 +13,6 @@ type AccountService interface {
 	GetByID(ID int64) (*domain.Account, error)
 }
 
-func NewAccountUsecases(accountService AccountService) (*AccountUsecases, error) {
-	return &AccountUsecases{accountService: accountService}, nil
+func NewAccountUsecases(accountService AccountService) *AccountUsecases {
+	return &AccountUsecases{accountService: accountService}
 }

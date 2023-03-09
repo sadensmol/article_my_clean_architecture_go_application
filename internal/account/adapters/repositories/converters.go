@@ -19,9 +19,9 @@ func (a RepositoryModelAccount) toDomain() *domain.Account {
 				return domain.AccountStatusClosed
 			case "new":
 				return domain.AccountStatusNew
+			default:
+				return domain.AccountStatusUnknown
 			}
-			//fixme how to make it working properly?
-			return domain.AccountStatusNew
 
 		}(),
 		AccessLevel: func() domain.AccountAccessLevel {
@@ -32,9 +32,9 @@ func (a RepositoryModelAccount) toDomain() *domain.Account {
 				return domain.AccountAccessLevelReadOnly
 			case "none":
 				return domain.AccountAccessLevelNone
+			default:
+				return domain.AccountAccessLevelNone
 			}
-			//fixme how to make it working properly?
-			return domain.AccountAccessLevelNone
 		}(),
 		OpenedAt: a.OpenedAt,
 		ClosedAt: a.ClosedAt,

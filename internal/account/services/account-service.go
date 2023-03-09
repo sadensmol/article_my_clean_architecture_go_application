@@ -11,8 +11,8 @@ type AccountRepository interface {
 	GetByID(ID int64) (*domain.Account, error)
 }
 
-func NewAccountService(accountRepository AccountRepository) (*AccountService, error) {
-	return &AccountService{accountRepository: accountRepository}, nil
+func NewAccountService(accountRepository AccountRepository) *AccountService {
+	return &AccountService{accountRepository: accountRepository}
 }
 
 func (s *AccountService) Create(account domain.Account) (*domain.Account, error) {

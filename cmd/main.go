@@ -24,8 +24,6 @@ import (
 )
 
 var (
-	// command-line options:
-	// gRPC server endpoint
 	grpcServerEndpoint = flag.String("grpc-server-endpoint", "localhost:9090", "gRPC server endpoint")
 )
 
@@ -43,6 +41,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database %v", err)
 	}
+	defer db.Close()
 
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
@@ -54,18 +53,11 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	// here we construct handlers along with requirements like account usecases etc
 
-	defer db.Close()
-	//fixme add error here
 	accountRepository := handler.NewAccountRepository(db)
-	accountService, err := services.NewAccountService(accountRepository)
-	if err != nil {
-		log.Fatalln("Cannot setup account service")
-	}
-
-	accountUsecases, _ := usecases.NewAccountUsecases(accountService)
-	accountHandler, _ := controllers.NewAccountHandler(accountUsecases)
+	accountService := services.NewAccountService(accountRepository)
+	accountUsecases := usecases.NewAccountUsecases(accountService)
+	accountHandler := controllers.NewAccountHandler(accountUsecases)
 
 	gw.RegisterAccountServiceServer(s, accountHandler)
 
@@ -90,7 +82,5 @@ func main() {
 	}
 
 	log.Println("Serving gRPC-Gateway on http://0.0.0.0:8090")
-
 	log.Fatalln(gwServer.ListenAndServe())
-
 }

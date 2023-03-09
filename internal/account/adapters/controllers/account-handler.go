@@ -19,12 +19,10 @@ type AccountUsecases interface {
 	GetByID(ID int64) (*domain.Account, error)
 }
 
-func NewAccountHandler(accountUsecases AccountUsecases) (*AccountHandler, error) {
-	return &AccountHandler{accountUsecases: accountUsecases}, nil //fixme how to deal with error here?
+func NewAccountHandler(accountUsecases AccountUsecases) *AccountHandler {
+	return &AccountHandler{accountUsecases: accountUsecases}
 }
 
-// here we do validate incoming requests!!!
-// todo we should not know about top level shit!!!? or handler is on the same layer?
 func (h *AccountHandler) Create(ctx context.Context, request *contractv1.CreateAccountRequest) (*contractv1.CreateAccountResponse, error) {
 	log.Println("create was called!!!")
 	account, err := h.accountUsecases.Create(domain.Account{
@@ -34,14 +32,13 @@ func (h *AccountHandler) Create(ctx context.Context, request *contractv1.CreateA
 	})
 
 	if err != nil {
-		//fixme add return error!
+		log.Fatalf("Error occurred %v", err)
 	}
 
 	return &contractv1.CreateAccountResponse{Id: account.ID}, nil
 }
 func (h *AccountHandler) GetById(ctx context.Context, request *contractv1.GetAccountRequest) (*contractv1.GetAccountResponse, error) {
 	account, err := h.accountUsecases.GetByID(request.GetId())
-	//fixme add error check here
 	if err != nil {
 		log.Fatalf("Error occurred %v", err)
 	}

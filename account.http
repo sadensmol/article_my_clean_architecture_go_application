@@ -1,6 +1,10 @@
+### create new account
 POST http://localhost:8090/api/v1/account
 Content-Encoding: application/json;
 
 {
 "name": "test_name"
 }
+
+### get account by id
+GET http://localhost:8090/api/v1/account/2

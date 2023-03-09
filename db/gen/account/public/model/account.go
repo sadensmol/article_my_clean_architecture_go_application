@@ -13,6 +13,7 @@ import (
 
 type Account struct {
 	ID          int64 `sql:"primary_key"`
+	Name        string
 	Status      string
 	AccessLevel string
 	OpenedAt    time.Time

@@ -73,7 +73,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -143,7 +144,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -151,13 +153,17 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "format": "int64"
         },
         "name": {
           "type": "string"
         },
         "status": {
           "$ref": "#/definitions/v1AccountStatus"
+        },
+        "accessLevel": {
+          "$ref": "#/definitions/v1AccessLevel"
         },
         "openedDate": {
           "type": "string",

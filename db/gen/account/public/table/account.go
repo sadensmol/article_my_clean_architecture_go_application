@@ -18,6 +18,7 @@ type accountTable struct {
 
 	//Columns
 	ID          postgres.ColumnInteger
+	Name        postgres.ColumnString
 	Status      postgres.ColumnString
 	AccessLevel postgres.ColumnString
 	OpenedAt    postgres.ColumnTimestampz
@@ -63,12 +64,13 @@ func newAccountTable(schemaName, tableName, alias string) *AccountTable {
 func newAccountTableImpl(schemaName, tableName, alias string) accountTable {
 	var (
 		IDColumn          = postgres.IntegerColumn("id")
+		NameColumn        = postgres.StringColumn("name")
 		StatusColumn      = postgres.StringColumn("status")
 		AccessLevelColumn = postgres.StringColumn("access_level")
 		OpenedAtColumn    = postgres.TimestampzColumn("opened_at")
 		ClosedAtColumn    = postgres.TimestampzColumn("closed_at")
-		allColumns        = postgres.ColumnList{IDColumn, StatusColumn, AccessLevelColumn, OpenedAtColumn, ClosedAtColumn}
-		mutableColumns    = postgres.ColumnList{StatusColumn, AccessLevelColumn, OpenedAtColumn, ClosedAtColumn}
+		allColumns        = postgres.ColumnList{IDColumn, NameColumn, StatusColumn, AccessLevelColumn, OpenedAtColumn, ClosedAtColumn}
+		mutableColumns    = postgres.ColumnList{NameColumn, StatusColumn, AccessLevelColumn, OpenedAtColumn, ClosedAtColumn}
 	)
 
 	return accountTable{
@@ -76,6 +78,7 @@ func newAccountTableImpl(schemaName, tableName, alias string) accountTable {
 
 		//Columns
 		ID:          IDColumn,
+		Name:        NameColumn,
 		Status:      StatusColumn,
 		AccessLevel: AccessLevelColumn,
 		OpenedAt:    OpenedAtColumn,

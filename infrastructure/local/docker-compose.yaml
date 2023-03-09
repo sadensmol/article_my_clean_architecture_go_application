@@ -1,14 +1,37 @@
 version: '3'
 services:
   postgres:
-    image: postgres:12
+    image: bitnami/postgresql:latest
     ports:
       - 5432:5432
     restart: always
     env_file:
       - .env
+    environment:
+      POSTGRESQL_USERNAME: ${DB_USER}
+      POSTGRESQL_PASSWORD: ${DB_PASSWORD}
+      POSTGRESQL_DATABASE: ${DB_NAME}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -q -h postgres"]
-      interval: 5s
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 1s
       timeout: 5s
       retries: 5
+
+  account:
+    build:
+      context: ../../.
+      dockerfile: infrastructure/local/Dockerfile
+    volumes:
+      - ../..:$PWD
+    working_dir: $PWD
+    ports:
+      - 8090:8090
+      - 9090:9090
+    restart: on-failure
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    command: ["sh","-c","go mod download && make migrate-up && make fixtures-up && air"]
+

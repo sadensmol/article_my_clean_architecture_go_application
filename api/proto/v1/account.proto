@@ -15,7 +15,7 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 message Account {
-  string id = 1;
+  int64 id = 1;
   string name = 2;
   AccountStatus status = 3;
   google.protobuf.Timestamp opened_date = 4;
@@ -42,19 +42,20 @@ message CreateAccountRequest {
 }
 
 message CreateAccountResponse {
-  string id = 1;
+  int64 id = 1;
 }
 
 message GetAccountRequest {
-  string id =1;
+  int64 id =1;
 }
 
 message GetAccountResponse {
-  string id =1;
+  int64 id =1;
   string name = 2;
   AccountStatus status = 3;
-  google.protobuf.Timestamp opened_date = 4;
-  google.protobuf.Timestamp closed_date = 5;
+  AccessLevel accessLevel =4;
+  google.protobuf.Timestamp opened_date = 5;
+  google.protobuf.Timestamp closed_date = 6;
 }
 
 service AccountService {

@@ -26,21 +26,6 @@ import (
 // Suppress "imported and not used" errors
 var _ codes.Code
 var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
-var _ io.Reader
 var _ status.Status
 var _ = runtime.String
 var _ = utilities.NewDoubleArray
@@ -52,6 +37,7 @@ func request_AccountService_Create_0(ctx context.Context, marshaler runtime.Mars
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
 	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
@@ -95,7 +81,7 @@ func request_AccountService_GetById_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.Id, err = runtime.Int64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
 	}
@@ -121,7 +107,7 @@ func local_request_AccountService_GetById_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "id")
 	}
 
-	protoReq.Id, err = runtime.String(val)
+	protoReq.Id, err = runtime.Int64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
 	}

@@ -1,3 +1,6 @@
+This is related to the following article:
+[My Clean Architecture Go Application](https://medium.com/@sadensmol/my-clean-architecture-go-application-e4611b1754cb)
+
 # install required dev tools
 
 ```shell 
@@ -10,13 +13,13 @@ google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 
 # start it
-
 ```shell
-go run
+make up
 ```
 
 # run tests
 
 ```shell
+make up
 go test ./...
 ```
